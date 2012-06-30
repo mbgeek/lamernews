@@ -60,7 +60,7 @@ SavedNewsPerPage = 10
 TopNewsAgeLimit = 3600*48
 
 # Footer links
-FooterTwitterLink = 'https://twitter.com/silicon-harbor'
+FooterTwitterLink = 'https://twitter.com/siliconharborsc'
 FooterGoogleGroupLink = false
 
 # API

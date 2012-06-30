@@ -4,12 +4,12 @@ SiteName = "Silicon Harbor News"
 SiteUrl = "http://www.silicon-harbor.com"
 
 # Redis config
-services = JSON.parse(ENV['VCAP_SERVICES'])
-redis_key = services.keys.select { |svc| svc =~ /redis/i }.first
-redis = services[redis_key].first['credentials']
+# services = JSON.parse(ENV['VCAP_SERVICES'])
+# redis_key = services.keys.select { |svc| svc =~ /redis/i }.first
+# redis = services[redis_key].first['credentials']
 # 
-RedisHost = redis['hostname']
-RedisPort = redis['port']
+# RedisHost = redis['hostname']
+# RedisPort = redis['port']
 # RedisPassword = redis['password'] || ""
 # 
 # RedisHost = '127.0.0.1'

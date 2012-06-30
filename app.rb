@@ -36,11 +36,14 @@ require 'digest/md5'
 require File.dirname(__FILE__) + '/comments'
 require File.dirname(__FILE__) + '/pbkdf2'
 require 'openssl' if UseOpenSSL
+require 'uri'
 
 Version = "0.9.3"
 
 before do
-    $r = Redis.new(:host => RedisHost, :port => RedisPort) if !$r
+    redis_url = URI(ENV['REDISTOGO_URL'] || 'redis://127.0.0.1:6379')
+    #$r = Redis.new(:host => RedisHost, :port => RedisPort) if !$r
+    $r = Redis.new(:host => redis_url.host, :port => redis_url.port, :password => redis_url.password) if !$r
     H = HTMLGen.new if !defined?(H)
     if !defined?(Comments)
         Comments = RedisComments.new($r,"comment",proc{|c,level|

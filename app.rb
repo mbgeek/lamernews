@@ -24,18 +24,17 @@
 # The views and conclusions contained in the software and documentation are
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of Salvatore Sanfilippo.
-
-require 'app_config'
+require 'json'
+require File.dirname(__FILE__) + '/app_config'
 require 'rubygems'
 require 'hiredis'
 require 'redis'
-require 'page'
+require File.dirname(__FILE__) + '/page'
 require 'sinatra'
-require 'json'
 require 'digest/sha1'
 require 'digest/md5'
-require 'comments'
-require 'pbkdf2'
+require File.dirname(__FILE__) + '/comments'
+require File.dirname(__FILE__) + '/pbkdf2'
 require 'openssl' if UseOpenSSL
 
 Version = "0.9.3"
@@ -863,7 +862,7 @@ def application_footer
     end
     H.footer {
         links = [
-            ["source code", "http://github.com/antirez/lamernews"],
+            ["source code", "http://github.com/twilson63/lamernews"],
             ["rss feed", "/rss"],
             ["twitter", FooterTwitterLink],
             ["google group", FooterGoogleGroupLink]
@@ -1085,6 +1084,7 @@ def get_news_by_id(news_ids,opt={})
             $r.hgetall("news:#{nid}")
         }
     }
+
     return [] if !news # Can happen only if news_ids is an empty array.
 
     # Remove empty elements
@@ -1098,7 +1098,8 @@ def get_news_by_id(news_ids,opt={})
         news.each{|n|
             # Adjust rank if too different from the real-time value.
             hash = {}
-            n.each_slice(2) {|k,v|
+            # n.each_slice(2)
+            n.each {|k,v|
                 hash[k] = v
             }
             update_news_rank_if_needed(hash) if opt[:update_rank]
@@ -1136,6 +1137,8 @@ def get_news_by_id(news_ids,opt={})
 
     # Return an array if we got an array as input, otherwise
     # the single element the caller requested.
+    # puts news
+    # puts result
     opt[:single] ? result[0] : result
 end
 
@@ -1340,8 +1343,9 @@ end
 # Return the host part of the news URL field.
 # If the url is in the form text:// nil is returned.
 def news_domain(news)
-    su = news["url"].split("/")
-    domain = (su[0] == "text:") ? nil : su[2]
+  puts news
+  su = news["url"].split("/")
+  domain = (su[0] == "text:") ? nil : su[2]
 end
 
 # Assuming the news has an url in the form text:// returns the text

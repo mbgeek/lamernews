@@ -1,10 +1,21 @@
+require 'json'
 # General
-SiteName = "Lamer News"
-SiteUrl = "http://lamernews.com"
+SiteName = "Silicon Harbor News"
+SiteUrl = "http://www.silicon-harbor.com"
 
 # Redis config
-RedisHost = "127.0.0.1"
-RedisPort = 10000
+services = JSON.parse(ENV['VCAP_SERVICES'])
+redis_key = services.keys.select { |svc| svc =~ /redis/i }.first
+redis = services[redis_key].first['credentials']
+# 
+RedisHost = redis['hostname']
+RedisPort = redis['port']
+# RedisPassword = redis['password'] || ""
+# 
+# RedisHost = '127.0.0.1'
+# RedisPort = 6379
+# RedisPassword = ""
+
 
 # Security
 PBKDF2Iterations = 1000 # Set this to 5000 to improve security. But it is slow.
@@ -49,7 +60,7 @@ SavedNewsPerPage = 10
 TopNewsAgeLimit = 3600*48
 
 # Footer links
-FooterTwitterLink = false
+FooterTwitterLink = 'https://twitter.com/silicon-harbor'
 FooterGoogleGroupLink = false
 
 # API

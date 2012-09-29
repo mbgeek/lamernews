@@ -1,7 +1,7 @@
 require 'json'
 # General
-SiteName = "Silicon Harbor News"
-SiteUrl = "http://www.silicon-harbor.com"
+SiteName = "CHS Tech New"
+SiteUrl = "http://www.chstechnews.com"
 
 # Redis config
 # services = JSON.parse(ENV['VCAP_SERVICES'])
@@ -60,7 +60,7 @@ SavedNewsPerPage = 10
 TopNewsAgeLimit = 3600*48
 
 # Footer links
-FooterTwitterLink = 'https://twitter.com/siliconharborsc'
+FooterTwitterLink = 'https://twitter.com/chstechnews'
 FooterGoogleGroupLink = false
 
 # API

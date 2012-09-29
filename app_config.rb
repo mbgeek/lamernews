@@ -1,6 +1,6 @@
 require 'json'
 # General
-SiteName = "CHS Tech New"
+SiteName = "CHS Tech News"
 SiteUrl = "http://www.chstechnews.com"
 
 # Redis config
